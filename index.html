@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Moje Gry Flash</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .nav-buttons {
+            margin-bottom: 20px;
+        }
+        .nav-buttons button {
+            background-color: #333;
+            color: white;
+            border: 2px solid #555;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .nav-buttons button:hover {
+            background-color: #00ff88;
+            color: black;
+            border-color: #00ff88;
+        }
+        #game-container {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</head>
+<body>
+
+    <h1 id="game-title">Bartender: The Right Mix</h1>
+
+    <div class="nav-buttons">
+        <button onclick="zmienGre('flash_therightmix.swf', 'Bartender: The Right Mix')">Bartender</button>
+        <button onclick="zmienGre('papaspancakeria_v2.swf', 'Papa\'s Pancakeria')">Papa's Pancakeria</button>
+        <button onclick="zmienGre('papasfreezeria_v2.swf', 'Papa\'s Freezeria')">Papa's Freezeria</button>
+        <button onclick="zmienGre('papascupcakeria_v2.swf', 'Papa\'s Cupcakeria')">Papa's Cupcakeria</button>
+    </div>
+
+    <div id="game-container">
+        <embed id="game-embed" src="flash_therightmix.swf" width="100%" height="100%">
+    </div>
+
+    <script>
+        function zmienGre(plikSwf, tytulGry) {
+            document.getElementById('game-title').innerText = tytulGry;
+            
+            const container = document.getElementById('game-container');
+            container.innerHTML = '<embed id="game-embed" src="' + plikSwf + '" width="100%" height="100%">';
+        }
+    </script>
+
+</body>
+</html>
