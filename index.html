@@ -6,35 +6,78 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
+            background-color: #121212;
             color: white;
             text-align: center;
             margin: 0;
             padding: 20px;
         }
-        .nav-buttons {
+        .controls {
             margin-bottom: 20px;
         }
-        .nav-buttons button {
-            background-color: #333;
+        .mute-btn {
+            background-color: #ff4444;
             color: white;
-            border: 2px solid #555;
-            padding: 10px 15px;
-            margin: 5px;
-            border-radius: 5px;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: bold;
             transition: 0.2s;
         }
-        .nav-buttons button:hover {
-            background-color: #00ff88;
-            color: black;
+        .mute-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Siatka gier w stylu Friv */
+        .games-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto 25px auto;
+        }
+        .game-card {
+            width: 100px;
+            height: 100px;
+            background-color: #252525;
+            border: 2px solid #3e3e3e;
+            border-radius: 12px;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+        .game-card:hover {
+            transform: translateY(-4px) scale(1.03);
             border-color: #00ff88;
         }
+        .game-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .game-card span {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
         #game-container {
             width: 800px;
             height: 600px;
             margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #000;
         }
     </style>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
@@ -43,25 +86,126 @@
 
     <h1 id="game-title">Bartender: The Right Mix</h1>
 
-    <div class="nav-buttons">
-        <button onclick="zmienGre('flash_therightmix.swf', 'Bartender: The Right Mix')">Bartender</button>
-        <button onclick="zmienGre('papaspancakeria_v2.swf', 'Papa\'s Pancakeria')">Papa's Pancakeria</button>
-        <button onclick="zmienGre('papasfreezeria_v2.swf', 'Papa\'s Freezeria')">Papa's Freezeria</button>
-        <button onclick="zmienGre('papascupcakeria_v2.swf', 'Papa\'s Cupcakeria')">Papa's Cupcakeria</button>
-        <button onclick="zmienGre('bloxors.swf', 'Bloxorz')">Bloxorz</button>
+    <div class="controls">
+        <button id="mute-button" class="mute-btn" onclick="toggleMute()">🔇 Dźwięk wyciszony (Kliknij, aby włączyć)</button>
     </div>
 
-    <div id="game-container">
-        <embed id="game-embed" src="flash_therightmix.swf" width="100%" height="100%">
+    <!-- Siatka z ikonami gier -->
+    <div class="games-grid">
+        <div class="game-card" onclick="zmienGre('flash_therightmix.swf', 'Bartender: The Right Mix')">
+            <img src="thumb-bartender.jpg" alt="Bartender" onerror="this.style.display='none'">
+            <span>Bartender</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('papaspancakeria_v2.swf', 'Papa\'s Pancakeria')">
+            <img src="thumb-pancakeria.jpg" alt="Pancakeria" onerror="this.style.display='none'">
+            <span>Papa's Pancakeria</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('papasfreezeria_v2.swf', 'Papa\'s Freezeria')">
+            <img src="thumb-freezeria.jpg" alt="Freezeria" onerror="this.style.display='none'">
+            <span>Papa's Freezeria</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('papascupcakeria_v2.swf', 'Papa\'s Cupcakeria')">
+            <img src="thumb-cupcakeria.jpg" alt="Cupcakeria" onerror="this.style.display='none'">
+            <span>Papa's Cupcakeria</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('papasbakeria_101.swf', 'Papa\'s Bakeria')">
+            <img src="thumb-bakeria.jpg" alt="Bakeria" onerror="this.style.display='none'">
+            <span>Papa's Bakeria</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('papassushiria_101.swf', 'Papa\'s Sushiria')">
+            <img src="thumb-sushiria.jpg" alt="Sushiria" onerror="this.style.display='none'">
+            <span>Papa's Sushiria</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('bloxors.swf', 'Bloxorz')">
+            <img src="thumb-bloxorz.jpg" alt="Bloxorz" onerror="this.style.display='none'">
+            <span>Bloxorz</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('Fireboy & Watergirl - The Forest Temple.swf', 'Fireboy and Watergirl 1')">
+            <img src="thumb-fireboy.jpg" alt="Fireboy and Watergirl 1" onerror="this.style.display='none'">
+            <span>Fireboy and Watergirl 1</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('Fireboy and Watergirl 2 - The Light Temple.swf', 'Fireboy and Watergirl 2')">
+            <img src="thumb-fireboy.jpg" alt="Fireboy and Watergirl 2" onerror="this.style.display='none'">
+            <span>Fireboy and Watergirl 2</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('Fireboy and Watergirl 3 - In The Ice Temple.swf', 'Fireboy & Watergirl 3')">
+            <img src="thumb-fireboy.jpg" alt="Fireboy & Watergirl 3" onerror="this.style.display='none'">
+            <span>Fireboy & Watergirl 3</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('Fireboy and Watergirl 4 - In The Crystal Temple.swf', 'Fireboy & Watergirl 4')">
+            <img src="thumb-fireboy.jpg" alt="Fireboy & Watergirl 4" onerror="this.style.display='none'">
+            <span>Fireboy & Watergirl 4</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('bob-the-robber-12369fdd9.swf', 'Bob the Robber')">
+            <img src="thumb-bob.jpg" alt="Bob the Robber" onerror="this.style.display='none'">
+            <span>Bob the Robber</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('big-head-football.swf', 'Big Head Football')">
+            <img src="thumb-football.jpg" alt="Big Head Football" onerror="this.style.display='none'">
+            <span>Big Head Football</span>
+        </div>
+        <div class="game-card" onclick="zmienGre('checkers.swf', 'Checkers')">
+            <img src="thumb-checkers.jpg" alt="Checkers" onerror="this.style.display='none'">
+            <span>Warcaby (Checkers)</span>
+        </div>
     </div>
+
+    <div id="game-container"></div>
 
     <script>
+        let isMuted = true;
+        let currentPlayer = null;
+
+        function zaladujGre(plikSwf) {
+            const container = document.getElementById('game-container');
+            container.innerHTML = ''; 
+
+            if (window.RufflePlayer && window.RufflePlayer.newest) {
+                const ruffle = window.RufflePlayer.newest();
+                currentPlayer = ruffle.createPlayer();
+                container.appendChild(currentPlayer);
+
+                currentPlayer.style.width = "100%";
+                currentPlayer.style.height = "100%";
+
+                currentPlayer.load({
+                    url: plikSwf,
+                    allowScriptAccess: true
+                }).then(() => {
+                    if (currentPlayer.volume !== undefined) {
+                        currentPlayer.volume = isMuted ? 0 : 1;
+                    }
+                });
+            } else {
+                setTimeout(() => zaladujGre(plikSwf), 150);
+            }
+        }
+
         function zmienGre(plikSwf, tytulGry) {
             document.getElementById('game-title').innerText = tytulGry;
-            
-            const container = document.getElementById('game-container');
-            container.innerHTML = '<embed id="game-embed" src="' + plikSwf + '" width="100%" height="100%">';
+            zaladujGre(plikSwf);
         }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const btn = document.getElementById('mute-button');
+            
+            if (isMuted) {
+                btn.innerText = "🔇 Dźwięk wyciszony (Kliknij, aby włączyć)";
+                btn.style.backgroundColor = "#ff4444";
+                btn.style.color = "white";
+                if (currentPlayer) currentPlayer.volume = 0;
+            } else {
+                btn.innerText = "🔊 Dźwięk włączony (Kliknij, aby wyciszyć)";
+                btn.style.backgroundColor = "#00ff88";
+                btn.style.color = "black";
+                if (currentPlayer) currentPlayer.volume = 1;
+            }
+        }
+
+        window.addEventListener("load", () => {
+            zaladujGre('flash_therightmix.swf');
+        });
     </script>
 
 </body>
